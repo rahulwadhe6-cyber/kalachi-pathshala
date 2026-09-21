@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>कालाची पाठशाळा | येत्या काळासाठी आजचा अभ्यास</title>
+  <meta name="description" content="मराठीत शाळेचा अभ्यास, AI साक्षरता आणि भविष्यातील कौशल्ये. मोबाईलवर 10 मिनिटांत सराव." />
+  <meta name="theme-color" content="#0b3d2e" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;500;600;700;800&family=Poppins:wght@500;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #07160f;
+      --bg2: #0c241a;
+      --card: #123226;
+      --line: #1e4a38;
+      --text: #effaf3;
+      --muted: #a9c7b6;
+      --green: #3ee08f;
+      --green-dark: #18a35f;
+      --gold: #f3c15a;
+      --blue: #7ad7ff;
+      --danger: #ff8b8b;
+      --radius: 18px;
+      --shadow: 0 10px 30px rgba(0,0,0,.25);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: "Noto Sans Devanagari", "Poppins", sans-serif;
+      background:
+        radial-gradient(1200px 500px at 10% -10%, #145536 0%, transparent 55%),
+        radial-gradient(800px 400px at 110% 10%, #163a28 0%, transparent 50%),
+        var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      line-height: 1.55;
+    }
+    a { color: var(--green); text-decoration: none; }
+    .wrap { width: min(1080px, 93%); margin: 0 auto; }
+    header {
+      position: sticky; top: 0; z-index: 20;
+      background: rgba(7,22,15,.86);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--line);
+    }
+    .nav {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 10px; padding: 12px 0;
+    }
+    .brand { display: flex; align-items: center; gap: 10px; font-weight: 800; }
+    .mark {
+      width: 38px; height: 38px; border-radius: 12px;
+      background: linear-gradient(145deg, var(--green), #0e8a52);
+      color: #062015; display: grid; place-items: center; font-weight: 800;
+    }
+    .nav-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+    button, .btn {
+      border: 0; cursor: pointer; font: inherit; color: inherit;
+    }
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      background: var(--green); color: #062015; font-weight: 700;
+      padding: 10px 14px; border-radius: 12px; min-height: 42px;
+    }
+    .btn.ghost {
+      background: transparent; color: var(--text);
+      border: 1px solid var(--line);
+    }
+    .hero { padding: 42px 0 18px; display: grid; gap: 22px; }
+    @media (min-width: 820px) {
+      .hero { grid-template-columns: 1.2fr .8fr; align-items: center; }
+    }
+    .eyebrow {
+      display: inline-block; color: var(--gold); font-weight: 700; font-size: .92rem;
+      background: #2a2410; border: 1px solid #5b4a1b; padding: 5px 10px; border-radius: 999px;
+    }
+    h1 { font-size: clamp(1.8rem, 6vw, 3.1rem); line-height: 1.15; margin: 12px 0; }
+    .lead { color: var(--muted); font-size: 1.05rem; max-width: 60ch; }
+    .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 18px; }
+    .stat {
+      background: var(--card); border: 1px solid var(--line);
+      border-radius: 14px; padding: 12px; text-align: center;
+    }
+    .stat b { display: block; font-size: 1.15rem; color: var(--green); }
+    .stat span { color: var(--muted); font-size: .82rem; }
+    .panel {
+      background: var(--card); border: 1px solid var(--line);
+      border-radius: 22px; padding: 16px; box-shadow: var(--shadow);
+    }
+    .panel h3 { margin-bottom: 8px; }
+    .tabs {
+      display: flex; gap: 8px; overflow-x: auto; padding: 8px 0 16px;
+      position: sticky; top: 58px; z-index: 15;
+      background: linear-gradient(var(--bg), rgba(7,22,15,.92));
+    }
+    .tab {
+      white-space: nowrap; background: var(--bg2); border: 1px solid var(--line);
+      color: var(--muted); padding: 8px 12px; border-radius: 999px; font-weight: 700;
+    }
+    .tab.active { background: var(--green); color: #062015; border-color: var(--green); }
+    section { display: none; padding-bottom: 28px; }
+    section.show { display: block; }
+    h2 { font-size: 1.35rem; margin: 6px 0 12px; }
+    .grid { display: grid; gap: 12px; }
+    @media (min-width: 700px) { .grid.cols-3 { grid-template-columns: repeat(3, 1fr); } }
+    .card {
+      background: var(--card); border: 1px solid var(--line);
+      border-radius: var(--radius); padding: 16px;
+    }
+    .card h3 { margin-bottom: 6px; }
+    .card p, .muted { color: var(--muted); }
+    .pill {
+      display: inline-block; font-size: .78rem; font-weight: 700;
+      background: #1a4332; color: var(--green); padding: 3px 8px; border-radius: 999px;
+      margin-bottom: 8px;
+    }
+    label { display: block; font-weight: 700; margin: 10px 0 6px; }
+    select, input, textarea {
+      width: 100%; background: #0b1f17; color: var(--text);
+      border: 1px solid var(--line); border-radius: 12px; padding: 11px 12px; font: inherit;
+    }
+    .q { margin-bottom: 14px; }
+    .options { display: grid; gap: 8px; margin-top: 8px; }
+    .opt {
+      text-align: left; background: #0b1f17; border: 1px solid var(--line);
+      border-radius: 12px; padding: 10px 12px;
+    }
+    .opt.correct { border-color: var(--green); background: #123c2b; }
+    .opt.wrong { border-color: var(--danger); background: #3a1c1c; }
+    .progress-bar { height: 10px; background: #0b1f17; border-radius: 99px; overflow: hidden; margin: 8px 0 14px; }
+    .progress-bar > i { display: block; height: 100%; width: 0; background: linear-gradient(90deg, var(--green), var(--gold)); }
+    .row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; }
+    .check {
+      display: flex; gap: 10px; align-items: flex-start;
+      background: #0b1f17; border: 1px solid var(--line); border-radius: 12px; padding: 10px;
+    }
+    .check input { width: 18px; height: 18px; margin-top: 4px; }
+    footer { border-top: 1px solid var(--line); color: var(--muted); padding: 22px 0 40px; font-size: .92rem; }
+    .ok { color: var(--green); font-weight: 700; }
+    .warn { color: var(--gold); }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap nav">
+      <div class="brand">
+        <div class="mark">क</div>
+        <div>कालाची पाठशाळा</div>
+      </div>
+      <div class="nav-actions">
+        <button class="btn ghost" id="resetBtn" type="button">प्रगती रीसेट</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="hero">
+      <div>
+        <span class="eyebrow">मराठी · शाळा · AI साक्षरता · मोबाईल-फर्स्ट</span>
+        <h1>येत्या काळात सर्वाधिक लोकांना लागणारी गोष्ट: शिकणे.</h1>
+        <p class="lead">
+          भारतात पुढची मोठी गरज इंग्रजी अॅप्स नव्हे, तर <b>स्वभाषेत समजणारा अभ्यास</b> आहे.
+          ही साइट शाळेचा सराव, सुरक्षित AI वापर आणि भविष्यातील कौशल्ये एका ठिकाणी देते.
+        </p>
+        <div class="stats">
+          <div class="stat"><b>10 मिनिटे</b><span>रोजचा डोस</span></div>
+          <div class="stat"><b>मराठी</b><span>समजेल अशी भाषा</span></div>
+          <div class="stat"><b>मोफत</b><span>फोनवर चालते</span></div>
+        </div>
+      </div>
+      <div class="panel" id="todayCard">
+        <h3>आजचा डोस</h3>
+        <p class="muted" id="todayDate"></p>
+        <p id="todayTask" style="margin:10px 0 14px"></p>
+        <button class="btn" id="startToday" type="button">आजचा सराव सुरू करा</button>
+      </div>
+    </section>
+
+    <div class="tabs" role="tablist">
+      <button class="tab active" data-tab="home">घर</button>
+      <button class="tab" data-tab="practice">सराव</button>
+      <button class="tab" data-tab="skills">भविष्य कौशल्ये</button>
+      <button class="tab" data-tab="ai">AI नीट वापरा</button>
+      <button class="tab" data-tab="plan">माझा प्लान</button>
+      <button class="tab" data-tab="links">मोफत लिंक्स</button>
+    </div>
+
+    <section id="home" class="show">
+      <h2>ही वेबसाइट का?</h2>
+      <div class="grid cols-3">
+        <article class="card">
+          <div class="pill">मागणी</div>
+          <h3>शाळेसाठी मदत</h3>
+          <p>भारतात बहुतेक विद्यार्थी फोनवर गणित, विज्ञान आणि इंग्रजीचा सराव शोधतात. YouTube नंतर सर्वाधिक गरज म्हणजे स्वभाषेत छोटी, स्पष्ट माहिती.</p>
+        </article>
+        <article class="card">
+          <div class="pill">गॅप</div>
+          <h3>मराठी + गाव/शहर</h3>
+          <p>मोठी अॅप्स अनेकदा इंग्रजीत किंवा फक्त परीक्षा फी घेऊन चालतात. इथे सुरुवात मराठीत, मोफत आणि मोबाईलसाठी आहे.</p>
+        </article>
+        <article class="card">
+          <div class="pill">भविष्य</div>
+          <h3>AI साक्षरता</h3>
+          <p>AI येणार नाही असे नाही, ते आलेच आहे. प्रश्न आहे: कॉपी करायची की समजून घ्यायची? ही साइट दुसरी गोष्ट शिकवते.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="practice">
+      <h2>आजचा सराव</h2>
+      <p class="muted">4 प्रश्न. उत्तर दिल्यावर लगेच समजावणी मिळेल. गुण फोनमध्येच जतन होतात.</p>
+      <div class="card" style="margin-top:12px">
+        <div class="progress-bar"><i id="quizBar"></i></div>
+        <div id="quizBox"></div>
+        <div class="row">
+          <button class="btn" id="nextQ" type="button">पुढचा प्रश्न</button>
+          <span class="muted" id="quizStatus"></span>
+        </div>
+      </div>
+    </section>
+
+    <section id="skills">
+      <h2>येत्या 5 वर्षांत उपयोगी कौशल्ये</h2>
+      <div class="grid cols-3" id="skillGrid"></div>
+    </section>
+
+    <section id="ai">
+      <h2>AI चा हुशार आणि प्रामाणिक वापर</h2>
+      <div class="grid cols-3">
+        <article class="card">
+          <h3>करा</h3>
+          <p>संकल्पना समजावून सांग, उदाहरण माग, स्वतःचा उत्तर तपास, कठीण शब्द सोपा कर.</p>
+        </article>
+        <article class="card">
+          <h3>करू नका</h3>
+          <p>संपूर्ण गृहपाठ कॉपी करू नका. न समजता उत्तर लिहू नका. वैयक्तिक माहिती AI ला देऊ नका.</p>
+        </article>
+        <article class="card">
+          <h3>चांगला प्रश्न</h3>
+          <p>“हे उत्तर लिहून दे” नव्हे. “हा नियम का लागतो? मला 1 सोपे उदाहरण दे.” असे विचारा.</p>
+        </article>
+      </div>
+      <div class="card" style="margin-top:12px">
+        <h3>AI ला विचारायची वाक्ये</h3>
+        <p class="muted">कॉपी करून वापरा, पण उत्तर स्वतःच्या शब्दात लिहा.</p>
+        <div class="grid" style="margin-top:10px" id="promptList"></div>
+      </div>
+    </section>
+
+    <section id="plan">
+      <h2>माझा 7 दिवसांचा प्लान</h2>
+      <label for="studentName">तुमचे नाव</label>
+      <input id="studentName" placeholder="उदा. राहुल" maxlength="40" />
+      <label for="studentClass">इयत्ता</label>
+      <select id="studentClass">
+        <option value="6">6 वी</option>
+        <option value="7">7 वी</option>
+        <option value="8">8 वी</option>
+        <option value="9">9 वी</option>
+        <option value="10" selected>10 वी</option>
+        <option value="11">11 वी</option>
+        <option value="12">12 वी</option>
+      </select>
+      <div class="grid" id="planList" style="margin-top:14px"></div>
+      <p class="muted" style="margin-top:10px">ही यादी फक्त तुमच्या फोनमध्ये राहते. दुसऱ्या फोनवर दिसणार नाही.</p>
+    </section>
+
+    <section id="links">
+      <h2>मोफत आणि विश्वासू जागा</h2>
+      <div class="grid cols-3">
+        <article class="card">
+          <div class="pill">सरकारी</div>
+          <h3>DIKSHA</h3>
+          <p>NCERT/शाळेचे धडे आणि व्हिडिओ.</p>
+          <p><a href="https://diksha.gov.in/" target="_blank" rel="noopener">diksha.gov.in</a></p>
+        </article>
+        <article class="card">
+          <div class="pill">कौशल्य</div>
+          <h3>Skill India Digital</h3>
+          <p>मराठीतही कोर्सेस. वेब, सुरक्षा, डिजिटल कौशल्ये.</p>
+          <p><a href="https://www.skillindiadigital.gov.in/" target="_blank" rel="noopener">skillindiadigital.gov.in</a></p>
+        </article>
+        <article class="card">
+          <div class="pill">पुस्तके</div>
+          <h3>NCERT / ePathshala</h3>
+          <p>मोफत पाठ्यपुस्तके.</p>
+          <p><a href="https://epathshala.nic.in/" target="_blank" rel="noopener">epathshala.nic.in</a></p>
+        </article>
+        <article class="card">
+          <div class="pill">भाषा</div>
+          <h3>Bhashini</h3>
+          <p>भारतीय भाषांतील भाषांतर आणि आवाज साधने.</p>
+          <p><a href="https://bhashini.gov.in/" target="_blank" rel="noopener">bhashini.gov.in</a></p>
+        </article>
+        <article class="card">
+          <div class="pill">अभ्यास</div>
+          <h3>महाराष्ट्र बोर्ड</h3>
+          <p>अधिकाृत परिपत्रके आणि अभ्यासक्रम तपासा.</p>
+          <p><a href="https://mahahsscboard.in/" target="_blank" rel="noopener">mahahsscboard.in</a></p>
+        </article>
+        <article class="card">
+          <div class="pill">कोड</div>
+          <h3>ही साइट GitHub वर</h3>
+          <p>फाइल अपलोड करून Pages चालू करा.</p>
+          <p><a href="https://github.com/rahulwadhe6-cyber" target="_blank" rel="noopener">तुमचे GitHub</a></p>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      कालाची पाठशाळा · विद्यार्थ्यांसाठी मोफत सुरुवातीची आवृत्ती · वैद्यकीय/कायदेशीर सल्ला नाही · AI उत्तर नेहमी तपासा.
+    </div>
+  </footer>
+
+  <script>
+    const $ = (id) => document.getElementById(id);
+    const store = {
+      get() {
+        try { return JSON.parse(localStorage.getItem("kalachi-pathshala") || "{}"); }
+        catch { return {}; }
+      },
+      set(data) { localStorage.setItem("kalachi-pathshala", JSON.stringify(data)); }
+    };
+
+    const questions = [
+      {
+        q: "AI चा शाळेसाठी सर्वात चांगला उपयोग कोणता?",
+        options: ["संपूर्ण उत्तर कॉपी करणे", "संकल्पना सोप्या भाषेत समजून घेणे", "शिक्षकांना विचारू नये म्हणून वापरणे", "गुणांसाठी फसवणे"],
+        a: 1,
+        why: "AI शिक्षक-मित्रासारखा वापरा. समज झाली की उत्तर स्वतः लिहा."
+      },
+      {
+        q: "इंटरनेटवर सुरक्षित राहण्यासाठी काय करू नये?",
+        options: ["पासवर्ड गुप्त ठेवणे", "अनोळखी व्यक्तीला घरचा पत्ता देणे", "पालकांना सांगणे", "खाजगी अॅकाउंट ठेवणे"],
+        a: 1,
+        why: "नाव, शाळा, फोन, घरचा पत्ता अनोळखी लोकांना देऊ नका."
+      },
+      {
+        q: "एखादी माहिती खरं आहे का ते कसे तपासावे?",
+        options: ["फक्त पहिली पोस्ट वाचा", "2-3 विश्वासू जागा तपासा", "फॉरवर्ड आले म्हणजे खरं", "लाइक्स जास्त म्हणजे खरं"],
+        a: 1,
+        why: "खोटी बातमी वेगाने पसरते. शाळा, सरकारी साइट किंवा शिक्षक यांची खात्री करा."
+      },
+      {
+        q: "नवीन कौशल्य शिकण्याचा सोपा नियम कोणता?",
+        options: ["वर्षातून एकदा 10 तास", "रोज थोडे, नियमित", "फक्त व्हिडिओ बघणे", "कठीण वाटले की सोडून देणे"],
+        a: 1,
+        why: "रोज 10 मिनिटे 3 महिने चालली की मोठी प्रगती होते."
+      },
+      {
+        q: "मराठीत अभ्यास करणे का उपयुक्त आहे?",
+        options: ["फक्त गावासाठी", "समज लवकर होते आणि नंतर इंग्रजीही सोपे होते", "इंग्रजी शिकू नये म्हणून", "बोर्डात मराठी नसते म्हणून"],
+        a: 1,
+        why: "आधी स्वभाषेत कल्पना पक्की, मग इतर भाषा जोडा."
+      }
+    ];
+
+    const skills = [
+      { t: "स्पष्ट संवाद", d: "WhatsApp/ईमेलमध्ये छोट्या वाक्यात, आदराने लिहिणे. हा स्किल नोकरी, शाळा, प्रोजेक्ट सर्वत्र लागतो." },
+      { t: "डिजिटल साक्षरता", d: "फाइल सेव्ह करणे, लिंक ओळखणे, खोटे अॅप टाळणे, पासवर्ड मजबूत ठेवणे." },
+      { t: "समस्या तोडणे", d: "मोठी समस्या छोटी करणे: काय माहितीये? काय उरले? पहिले पाऊल काय?" },
+      { t: "AI मदतनीस", d: "चांगला प्रश्न विचारणे, उत्तर तपासणे, स्वतःच्या शब्दात लिहिणे." },
+      { t: "वेळेचे नियोजन", d: "फोन 20 मिनिटे बाजूला, 1 विषय, 1 छोटा ध्येय. नंतर 5 मिनिटे विश्रांती." },
+      { t: "स्थानिक गरज", d: "गाव/शहरातील खरी समस्या शोधा. वेबसाइट तेव्हाच वापरली जाते जेव्हा ती एखाद्याचे काम सोपे करते." }
+    ];
+
+    const prompts = [
+      "हा धडा 7 वीच्या विद्यार्थ्याला मराठीत समजाव. नंतर 3 सोपे प्रश्न दे.",
+      "मी हे उत्तर लिहिले आहे. चुका दाखव, पण तयार उत्तर देऊ नकोस.",
+      "एका कठीण शब्दाची व्याख्या, एक उदाहरण आणि एक समानार्थी शब्द दे.",
+      "10 मिनिटांत अभ्यास करायचा प्लान दे: विषय + काय लिहायचे + कसे तपासायचे."
+    ];
+
+    const planItems = [
+      "आज 10 मिनिटे गणित/विज्ञान सराव",
+      "1 पृष्ठ स्वतःच्या शब्दात सारांश",
+      "AI ला 1 चांगला प्रश्न विचारून समजावणी",
+      "1 नवीन शब्द मराठी + इंग्रजी",
+      "फोनशिवाय 20 मिनिटे अभ्यास",
+      "एका मित्राला 1 गोष्ट समजावून सांग",
+      "आठवड्याचा छोटा रिव्हिजन"
+    ];
+
+    const tasks = [
+      "आज 1 गणित उदाहरण स्वतः सोडवा, मगच उत्तर तपासा.",
+      "आज 8 ओळींमध्ये एखादा धडा स्वतःच्या शब्दात लिहा.",
+      "आज AI ला एक संकल्पना मराठीत विचारून, ती वहीत लिहा.",
+      "आज 10 मिनिटे फक्त एका विषयावर. डायस्ट्रॅक्शन बंद.",
+      "आज 1 खोटी बातमी कशी ओळखायची ते पालकांना सांगा.",
+      "आज 5 इंग्रजी शब्द आणि मराठी अर्थ लिहा.",
+      "आज मागील चुका 3 दुरुस्त करून पुन्हा सोडवा."
+    ];
+
+    let qIndex = 0, locked = false, score = 0;
+
+    function switchTab(name) {
+      document.querySelectorAll("section").forEach((s) => {
+        if (["home","practice","skills","ai","plan","links"].includes(s.id)) {
+          s.classList.toggle("show", s.id === name);
+        }
+      });
+      document.querySelectorAll(".tab").forEach((t) => t.classList.toggle("active", t.dataset.tab === name));
+    }
+
+    function renderQuiz() {
+      const box = $("quizBox");
+      if (qIndex >= questions.length) {
+        const data = store.get();
+        data.best = Math.max(data.best || 0, score);
+        data.lastScore = score;
+        store.set(data);
+        box.innerHTML = `<h3>सराव पूर्ण</h3><p>गुण: <span class="ok">${score}/${questions.length}</span></p><p class="muted">सर्वोत्तम: ${data.best}/${questions.length}</p>`;
+        $("quizStatus").textContent = "उद्या पुन्हा ये. रोज थोडे.";
+        $("quizBar").style.width = "100%";
+        $("nextQ").textContent = "पुन्हा सुरू करा";
+        return;
+      }
+      const item = questions[qIndex];
+      locked = false;
+      $("quizBar").style.width = `${(qIndex / questions.length) * 100}%`;
+      $("quizStatus").textContent = `प्रश्न ${qIndex + 1} / ${questions.length}`;
+      $("nextQ").textContent = "पुढचा प्रश्न";
+      box.innerHTML = `
+        <div class="q">
+          <h3>${item.q}</h3>
+          <div class="options">
+            ${item.options.map((o, i) => `<button class="opt" data-i="${i}" type="button">${o}</button>`).join("")}
+          </div>
+          <p class="muted" id="why" style="margin-top:10px"></p>
+        </div>`;
+      box.querySelectorAll(".opt").forEach((btn) => {
+        btn.onclick = () => {
+          if (locked) return;
+          locked = true;
+          const i = Number(btn.dataset.i);
+          box.querySelectorAll(".opt").forEach((b, idx) => {
+            if (idx === item.a) b.classList.add("correct");
+            if (idx === i && i !== item.a) b.classList.add("wrong");
+          });
+          if (i === item.a) score += 1;
+          $("why").textContent = item.why;
+        };
+      });
+    }
+
+    function renderSkills() {
+      $("skillGrid").innerHTML = skills.map((s) =>
+        `<article class="card"><h3>${s.t}</h3><p>${s.d}</p></article>`
+      ).join("");
+      $("promptList").innerHTML = prompts.map((p) =>
+        `<article class="card"><p>${p}</p></article>`
+      ).join("");
+    }
+
+    function renderPlan() {
+      const data = store.get();
+      $("studentName").value = data.name || "";
+      $("studentClass").value = data.cls || "10";
+      const done = data.done || [];
+      $("planList").innerHTML = planItems.map((item, i) => `
+        <label class="check">
+          <input type="checkbox" data-i="${i}" ${done[i] ? "checked" : ""} />
+          <span><b>दिवस ${i + 1}:</b> ${item}</span>
+        </label>
+      `).join("");
+    }
+
+    function savePlan() {
+      const data = store.get();
+      data.name = $("studentName").value.trim();
+      data.cls = $("studentClass").value;
+      data.done = [...document.querySelectorAll("#planList input")].map((x) => x.checked);
+      store.set(data);
+    }
+
+    function setToday() {
+      const d = new Date();
+      $("todayDate").textContent = d.toLocaleDateString("mr-IN", { weekday: "long", day: "numeric", month: "long" });
+      $("todayTask").textContent = tasks[d.getDay()];
+    }
+
+    document.querySelectorAll(".tab").forEach((t) => t.onclick = () => switchTab(t.dataset.tab));
+    $("startToday").onclick = () => { switchTab("practice"); window.scrollTo({ top: 0, behavior: "smooth" }); };
+    $("nextQ").onclick = () => {
+      if (qIndex >= questions.length) { qIndex = 0; score = 0; }
+      else qIndex += 1;
+      renderQuiz();
+    };
+    $("studentName").oninput = savePlan;
+    $("studentClass").onchange = savePlan;
+    $("planList").addEventListener("change", savePlan);
+    $("resetBtn").onclick = () => {
+      if (confirm("फोनवरील प्रगती पुसून टाकायची?")) {
+        localStorage.removeItem("kalachi-pathshala");
+        qIndex = 0; score = 0;
+        renderPlan(); renderQuiz();
+      }
+    };
+
+    setToday();
+    renderSkills();
+    renderPlan();
+    renderQuiz();
+  </script>
+</body>
+</html>
